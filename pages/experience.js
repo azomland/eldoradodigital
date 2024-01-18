@@ -1,6 +1,6 @@
 // pages/experience.js
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import '../styles/globals.css'
@@ -10,15 +10,20 @@ export default function ExperiencePage() {
     const router = useRouter();
     const { imgSrc } = router.query;
     const [stage, setStage] = useState(0);
-  
+    const audioRef = useRef(null); 
+
     useEffect(() => {
       // Lógica para cambiar de etapa
       const timer = setTimeout(() => {
         if (stage < 12) {
           setStage(stage + 1);
         }
-      }, 1000);
-  
+      }, 2500);
+      
+      if (stage === 0 && audioRef.current) {
+        audioRef.current.play();
+    }
+
       // Activar pantalla completa al cargar
       if (stage === 0) {
         if (document.documentElement.requestFullscreen) {
@@ -34,7 +39,7 @@ export default function ExperiencePage() {
   return (    
       <div className="flex justify-center items-center min-h-screen bg-black">
         <div className="text-[#81f565] text-center mx-auto my-0 justify-center flex flex-col">
-       
+        <audio ref={audioRef} src="/song.mp3" />
         {stage === 0 && <p className="text-center text-2xl">Preparando tu futuro... 🤑🤑🤑</p>}
         {stage === 1 && <p className="text-center text-2xl">Conectando con el servidor secreto... 🤫</p>}
         {stage === 2 && (
