@@ -38,6 +38,7 @@ export default function Home() {
             </blockquote>
           </div>
         </section>
+    
       </main>
 
       <footer className="py-5 text-center">
